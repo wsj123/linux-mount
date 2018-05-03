@@ -1,37 +1,71 @@
-## Welcome to GitHub Pages
+## linux挂载:mount,umount
 
-You can use the [editor on GitHub](https://github.com/wsj123/linux-mount/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+linux挂载mount,卸载umount,不常用，一般都是通过网络上传
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### 常用命令
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
-Syntax highlighted code block
+mount 查看已经挂载的设备
 
-# Header 1
-## Header 2
-### Header 3
+vim /etc/fstab linux 自动挂载的文件
 
-- Bulleted
-- List
+mount -a 自动挂载
 
-1. Numbered
-2. List
+mount -t文件系统 -o特殊选项 设备文件名 挂载点
 
-**Bold** and _Italic_ and `Code` text
+-t :ext3,ext4,iso9660 
 
-[Link](url) and ![Image](src)
+-o :exec 允许执行可执行文件,默认
+
+vi hello.sh
+
+#! /bin/bash
+echo "hello cangls"
+chmod 755 hello.sh
+./hello.sh
+
+
+mount -o remount,noexec /home/
+
+./hello.sh
+
+whoami
+
+mount -o remount.exec /home/
+
+./hello.sh
+
+mkdir /mnt/cdrom/ 建立挂载点
+
+ls /
+
+mount -t iso9660 /dev/sr0 /mnt/cdrom 挂载光盘
+
+mount -t /dev/sr0 /mnt/cdrom
+
+cd /mnt/cdrom
+
+ls
+
+umount 设备文件名或挂载点
+
+umount /dev/sr0
+
+umount /mnt/cdrom/ 设备正忙（在光盘目录下）
+ls
+pwd
+
+5.挂载u盘
+
+ls /dev 系统自动挂载
+
+sdb1 第二块硬盘
+
+fdisk -l 分区命令,查看u盘设备文件名
+
+mount -t vfat /dev/sdb1 /mnt/usb/
+linux默认不支持ntfs文件系统
+
+ntfs-3g
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/wsj123/linux-mount/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
